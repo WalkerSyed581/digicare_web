@@ -2,9 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const { Patient } = require('./patient');
-const { Doctor } = require('./doctor');
-const { CareGiver } = require('./caregiver');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -15,15 +12,54 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(Patient);
-      User.hasOne(Doctor);
-      User.hasOne(CareGiver);
+      User.hasOne(models.Patient);
+      User.hasOne(models.Doctor);
+      User.hasOne(models.CareGiver);
    }
   };
   User.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING
+    firstName: {
+      type: DataTypes.STRING,
+      unique: false,
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      unique: false,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: false,
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    phone_no: {
+      type: DataTypes.STRING(11),
+      allowNull: false
+    },
+    dob: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    },
+    gender: {
+      type: equelize.ENUM('F', 'M','Other'),
+      allowNull: false
+    },
+    address: {
+      type: DataTypes.STRING
+    },
+    cnic: {
+      type: DataTypes.STRING(13),
+      allowNull: false
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'User',

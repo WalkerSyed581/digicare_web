@@ -2,8 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const { Patient } = require('./patient');
-const { User } = require('./user');
 
 module.exports = (sequelize, DataTypes) => {
   class CareGiver extends Model {
@@ -14,13 +12,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      CareGiver.belongsTo(User);
-      CareGiver.belongsTo(Patient);
+      CareGiver.belongsTo(models.User,{foreignKey: 'user_id' });
+      CareGiver.belongsTo(models.Patient,{foreignKey: 'patient_id' });
     }
   };
   CareGiver.init({
-    user_id: DataTypes.INTEGER,
-    relationship: DataTypes.STRING
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    },
+    patient_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Patient',
+        key: 'id'
+      }
+    },
+    relationship: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'CareGiver',

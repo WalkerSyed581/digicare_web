@@ -11,11 +11,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      SensorUserData.belongsTo(models.Patient,{foreignKey: 'patient_id' });
+      SensorUserData.belongsTo(models.Sensor,{foreignKey: 'sensor_id' });
     }
   };
   SensorUserData.init({
-    timestamp: DataTypes.TIME,
-    sensor_reading: DataTypes.FLOAT
+    sensor_reading: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    timestamp: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    patient_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Patient',
+        key: 'id'
+      }
+    },
+    sensor_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Sensor',
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
     modelName: 'SensorUserData',

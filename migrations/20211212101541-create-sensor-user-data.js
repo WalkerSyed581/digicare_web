@@ -9,10 +9,27 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       timestamp: {
-        type: Sequelize.TIME
+        type: Sequelize.DATE,
+        allowNull: false,
       },
       sensor_reading: {
         type: Sequelize.FLOAT
+      },
+      patient_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Patients',
+          key: 'id'
+        }
+      },
+      sensor_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Sensors',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

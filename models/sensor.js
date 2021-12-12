@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+
+
 module.exports = (sequelize, DataTypes) => {
   class Sensor extends Model {
     /**
@@ -11,11 +13,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Sensor.hasMany(models.SesnorUserData)
     }
   };
   Sensor.init({
-    name: DataTypes.STRING,
-    data_desc: DataTypes.STRING
+    name: {
+      type :DataTypes.STRING,
+      allowNull: false,
+    },
+    data_desc: {
+      type :DataTypes.STRING,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Sensor',

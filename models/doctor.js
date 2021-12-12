@@ -2,8 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const { User } = require('./user');
-const { Assessment } = require('./assessment');
 
 module.exports = (sequelize, DataTypes) => {
   class Doctor extends Model {
@@ -14,13 +12,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Doctor.belongsTo(User);
-      Doctor.hasOne(Assessment);
+      Doctor.belongsTo(models.User,{foreignKey: 'user_id' });
+      Doctor.hasOne(models.Assessment);
     }
   };
   Doctor.init({
-    user_id: DataTypes.INTEGER,
-    emergency_contact: DataTypes.INTEGER
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    },
+    emergency_contact: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Doctor',

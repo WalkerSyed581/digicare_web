@@ -14,16 +14,43 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Assessment.belongsTo(Doctor);
-      Assessment.belongsTo(Patient);
+      Assessment.belongsTo(models.Doctor,{foreignKey: 'doctor_id' });
+      Assessment.belongsTo(models.Patient,{foreignKey: 'patient_id' });
     }
   };
   Assessment.init({
-    notes: DataTypes.STRING,
-    condition: DataTypes.STRING,
-    recommendations: DataTypes.STRING,
-    cgInstr: DataTypes.STRING,
-    date: DataTypes.DATE
+    notes: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    doctor_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Doctor',
+        key: 'id'
+      }
+    },
+    patient_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Patient',
+        key: 'id'
+      }
+    },
+    condition: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    recommendations: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    cgInstr: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'Assessment',
