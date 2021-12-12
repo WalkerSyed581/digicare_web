@@ -9,12 +9,32 @@ const dotenv = require('dotenv')
 dotenv.config({ path: './config/config.env'})
 
 const app = express()
-let users = require('./routes/users');
+let admin = require('./routes/admin');
+let doctor = require('./routes/doctor');
+let caregiver = require('./routes/caregiver');
+let patient = require('./routes/patient');
 
 app.use(express.static(path.join(__dirname, 'resources')));
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs')
+
+// Handlebars
+app.engine(
+    '.hbs',
+    exphbs({
+      helpers: {
+        formatDate,
+        stripTags,
+        truncate,
+        editIcon,
+        select,
+      },
+      defaultLayout: 'main',
+      extname: '.hbs',
+    })
+  )
+  app.set('view engine', '.hbs')
+  
 
 app.use(session({
     secret: 'keyboard cat',
@@ -32,10 +52,11 @@ app.use(passport.session());
 
 //Routes
 app.use('/',require('./routes/index'))
-app.use('/users', users);
-
+app.use('/admin', admin);
+app.use('/patient', patient);
+app.use('/caregiver', caregiver);
+app.use('/doctor', doctor);
   
-
 
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
