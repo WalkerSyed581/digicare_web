@@ -3,7 +3,6 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require('passport');
 var User = require('../models').User;
-var Friends = require('../models').Friends;
 const db = require('../models');
 const path = require('path')
 const { body,check, validationResult } = require('express-validator');
