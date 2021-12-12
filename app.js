@@ -5,12 +5,12 @@ const morgan = require('morgan')
 const passport = require('passport');
 const session = require('express-session');
 
-// const dotenv = require('dotenv')
+const dotenv = require('dotenv')
 
 const db = require('./models/index.js')
 
 
-// dotenv.config({ path: './config/config.env'})
+dotenv.config({ path: './config/config.env'})
 
 const app = express()
 let users = require('./routes/users');
