@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const passport = require('passport');
 const session = require('express-session');
 const dotenv = require('dotenv')
+const flash = require('connect-flash');
 
 dotenv.config({ path: './config/config.env'})
 
@@ -14,9 +15,20 @@ let doctor = require('./routes/doctor');
 let caregiver = require('./routes/caregiver');
 let patient = require('./routes/patient');
 
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'resources')));
 
 app.set('views', path.join(__dirname, 'views'));
+
+
+// Handlebars Helpers
+const {
+  formatDate,
+  stripTags,
+  truncate,
+  editIcon,
+  select,
+} = require('./helpers/hbs')
 
 // Handlebars
 app.engine(
@@ -33,7 +45,7 @@ app.engine(
       extname: '.hbs',
     })
   )
-  app.set('view engine', '.hbs')
+app.set('view engine', '.hbs')
   
 
 app.use(session({

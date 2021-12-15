@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Sensor.hasMany(models.SesnorUserData)
+      Sensor.hasMany(models.SensorUserData)
     }
   };
   Sensor.init({
