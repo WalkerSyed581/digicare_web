@@ -4,20 +4,23 @@
       "password": "postgres",
       "database": "digicare",
       "host": "127.0.0.1",
-      "dialect": "postgres"
+      "dialect": "postgres",
+      "seederStorage": "json"
     },
     "test": {
         "username": "postgres",
         "password": "postgres",
         "database": "digicare_test",
         "host": "127.0.0.1",
-        "dialect": "postgres"
+        "dialect": "postgres",
+        "seederStorage": "json"
       },
     "production": {
         "username": "postgres",
         "password": "postgres",
         "database": "digicare",
         "host": "127.0.0.1",
-        "dialect": "postgres"
+        "dialect": "postgres",
+        "seederStorage": "json"
     }
   }
