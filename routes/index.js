@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const ensureAuthenticated = require("./auth")
+const { ensureAuthenticated } = require("./auth")
 const path = require('path')
 const bcrypt = require("bcrypt");
 const passport = require('passport');
@@ -9,9 +9,9 @@ var Patient = require('../models').Patient;
 var Doctor = require('../models').Doctor;
 var Caregiver = require('../models').Caregiver;
 const db = require('../models');
-const { body,check, validationResult } = require('express-validator');
-const moment = require("moment")
-const { Op } = require("sequelize")
+// const { body,check, validationResult } = require('express-validator');
+// const moment = require("moment")
+// const { Op } = require("sequelize")
 
 var authUser;
 
@@ -70,7 +70,8 @@ router.get('/',ensureAuthenticated,async (req, res) => {
 		loggedIn: req.isAuthenticated(),
 		user: req.user,
 		spec_user: spec_user,
-		role_err: req.flash('role_err')
+		role_err: req.flash('role_err'),
+		doc_allow: req.flash('doc_allow')
 	});
 });
 

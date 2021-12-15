@@ -65,13 +65,28 @@ router.get('/patient/:id',ensureAuthenticated,HasRole("D"),async(req,res)=>{
     })
 });
 
-router.get('/patient/:id/reading',ensureAuthenticated,HasRole("D"),VerifyAccess(req.user.id,req.query.id),async(req,res)=>{
-    const spec_user = await Doctor.findByPk(req.user.id)
+router.get('/patient/:id/reading',ensureAuthenticated,HasRole("D"),async(req,res)=>{
 
-    SensorUserData.findOne({
+    if(!VerifyAccess(req.user.id,req.params.id)){
+        req.flash("role_err","No Authorization for access")
+        res.redirect('/')
+    } else {
+        next();
+    }
+
+    const spec_user = await Doctor.findByPk({
         where: {
-            id: req.params.id
+            user_id: req.user.id
         }
+    })
+
+    SensorUserData.findAndCountAll({
+        where: {
+            patient_id: req.params.id
+        },
+        order: [timestamp],
+        limit: 10,
+        offset: 0,
     }).then(function (result) {
         res.render('dashboard',{
             loggedIn: req.isAuthenticated(),
@@ -84,9 +99,19 @@ router.get('/patient/:id/reading',ensureAuthenticated,HasRole("D"),VerifyAccess(
 });
 
 
-router.get('/patient/:id/assessment/add',ensureAuthenticated,HasRole("D"),VerifyAccess(req.user.id,req.query.id),async(req,res)=>{
-     
-    const spec_user = await Doctor.findByPk(req.params.id)
+router.get('/patient/:id/assessment/add',ensureAuthenticated,HasRole("D"),async(req,res)=>{
+     if(!VerifyAccess(req.user.id,req.params.id)){
+        req.flash("role_err","No Authorization for access")
+        res.redirect('/')
+    } else {
+        next();
+    }
+
+    const spec_user = await Doctor.findByPk({
+        where: {
+            user_id: req.user.id
+        }
+    })
 
     
     res.render('dashboard',{
@@ -98,12 +123,18 @@ router.get('/patient/:id/assessment/add',ensureAuthenticated,HasRole("D"),Verify
     });
 });
 
-router.get('/patient/:id/assessment/',
-            ensureAuthenticated,
-            HasRole("D"),
-            VerifyAccess(req.user.id,req.query.id),
-            async(req,res)=>{
-    const spec_user = await Doctor.findByPk(req.query.id)
+router.get('/patient/:id/assessment/',ensureAuthenticated,HasRole("D"),async(req,res)=>{
+    if(!VerifyAccess(req.user.id,req.params.id)){
+        req.flash("role_err","No Authorization for access")
+        res.redirect('/')
+    } else {
+        next();
+    }
+    const spec_user = await Doctor.findByPk({
+        where: {
+            user_id: req.user.id
+        }
+    })
 
 
 
@@ -135,8 +166,19 @@ router.get('/patient/:id/assessment/',
     })
 });
 
-router.get('/patient/:id/assessment/:assess_id',ensureAuthenticated,HasRole("D"),VerifyAccess(req.user.id,req.query.id),async(req,res)=>{
-    const spec_user = await Doctor.findByPk(req.user.id)
+router.get('/patient/:id/assessment/:assess_id',ensureAuthenticated,HasRole("D"),async(req,res)=>{
+    if(!VerifyAccess(req.user.id,req.params.id)){
+        req.flash("role_err","No Authorization for access")
+        res.redirect('/')
+    } else {
+        next();
+    }
+
+    const spec_user = await Doctor.findByPk({
+        where: {
+            user_id: req.user.id
+        }
+    })
 
     Assessment.findOne({
         where: {
@@ -154,7 +196,18 @@ router.get('/patient/:id/assessment/:assess_id',ensureAuthenticated,HasRole("D")
 });
 
 router.get('/patient/:id/assessment/delete',ensureAuthenticated,HasRole("D"),async(req,res)=>{
-    const spec_user = await Doctor.findByPk(req.user.id)
+    if(!VerifyAccess(req.user.id,req.params.id)){
+        req.flash("role_err","No Authorization for access")
+        res.redirect('/')
+    } else {
+        next();
+    }
+
+    const spec_user = await Doctor.findByPk({
+        where: {
+            user_id: req.user.id
+        }
+    })
 
     await Assessment.destroy({
         where: {
@@ -169,6 +222,85 @@ router.get('/patient/:id/assessment/delete',ensureAuthenticated,HasRole("D"),asy
             readings: result
         });
     });
+});
+
+router.get('/patient/:id/analytics',ensureAuthenticated,HasRole("D"),async(req,res)=>{
+    if(!VerifyAccess(req.user.id,req.params.id)){
+        req.flash("role_err","No Authorization for access")
+        res.redirect('/')
+    } else {
+        next();
+    }
+
+    const spec_user = await Doctor.findOne({
+        where : {
+            user_id: req.user.id
+        }
+    });
+
+
+
+    SensorUserData.findAndCountAll({
+        where: {
+            patient_id: req.params.id
+        },
+        order: [timestamp],
+        limit: 10,
+        offset: 0,
+    }).then(function (result) {
+        res.render('dashboard',{
+            loggedIn: req.isAuthenticated(),
+            user: req.user,
+            spec_user: spec_user,
+            role_err: req.flash('role_err'),
+            readings: result
+        });
+    });  
+});
+
+
+router.post('/patient/:id/analytics',[
+    // validate input
+    check('start_date').not().isEmpty(),
+    check('end_date').not().isEmpty(),
+    ],ensureAuthenticated,HasRole("D"),async(req,res)=>{
+    if(!VerifyAccess(req.user.id,req.params.id)){
+        req.flash("role_err","No Authorization for access")
+        res.redirect('/')
+    } else {
+        next();
+    }
+
+    const spec_user = await Doctor.findOne({
+        where : {
+            user_id: req.user.id
+        }
+    });
+
+
+    SensorUserData.findAndCountAll({
+        where: {
+            patient_id: req.params.id,
+            timestamp: {
+                [Op.gte] : start_date.toDate(),
+                [Op.lt] : end_date.toDate()
+            }
+        },
+        order: [timestamp],
+        limit: 10,
+        offset: 0,
+        include: [
+            {model : Sensor}
+        ]
+    }).then(function (result) {
+        res.render('dashboard',{
+            loggedIn: req.isAuthenticated(),
+            user: req.user,
+            spec_user: spec_user,
+            role_err: req.flash('role_err'),
+            readings: result
+        });
+    });  
 });
 
 module.exports = router

@@ -22,21 +22,14 @@ function HasRole(role) {
 }
 
 function VerifyAccess(doctor_id,patient_id) {
-  return function(req, res, next) {
-    DoctorPatient.findOne({
-      where: {
-          patient_id: patient_id,
-          doctor_id: doctor_id
-      }
-    }).then(result => {
-      if(!result){
-        req.flash("role_err","No Authorization for access")
-        res.redirect('/')
-      } else {
-        next();
-      }
-    })
-  }
+  DoctorPatient.findOne({
+    where: {
+        patient_id: patient_id,
+        doctor_id: doctor_id
+    }
+  }).then(result => {
+    return result
+  })
 }
 
 
