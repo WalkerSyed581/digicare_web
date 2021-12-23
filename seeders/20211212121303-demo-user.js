@@ -12,7 +12,7 @@ module.exports = {
      * }], {});
     */
     return queryInterface.bulkInsert('Users', [{
-      id: 0,
+      id: 1,
       firstName: 'Afzal',
       lastName: 'Habib',
       email: 'afzalhabib@gmail.com',
@@ -26,7 +26,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 1,
+      id: 2,
       firstName: 'Afzal',
       lastName: 'Hakim',
       email: 'afzalhakim@gmail.com',
@@ -40,7 +40,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 2,
+      id: 3,
       firstName: 'Adnan',
       lastName: 'Habib',
       email: 'adnanhabib@yahoo.com',
@@ -54,7 +54,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 3,
+      id: 4,
       firstName: 'Adnan',
       lastName: 'Hakim',
       email: 'adnanhakim@yahoo.com',
@@ -65,6 +65,20 @@ module.exports = {
       address: 'House 21, Street 15, Karachi',
       cnic: 6709851360510,
       age: 31,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      id: 5,
+      firstName: 'Afzal',
+      lastName: 'Habib',
+      email: 'afzalhabib@seecs.edu.pk',
+      password: 'Z34hy',
+      phone_no: '17665555947',
+      dob: new Date(),
+      gender: 'M',
+      address: 'House 1, Street 85, Karachi',
+      cnic: 3556458368938,
+      age: 66,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

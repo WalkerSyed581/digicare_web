@@ -13,15 +13,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Patient.belongsTo(models.User,{foreignKey: 'user_id' });
+      Patient.belongsTo(models.User,{foreignKey: '_id' });
       Patient.hasOne(models.CareGiver);
       Patient.hasOne(models.Assessment);
       Patient.hasMany(models.SensorUserData);
     }
   };
   Patient.init({
-    user_id: {
+    _id: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
       allowNull: false,
       references: {
         model: 'User',

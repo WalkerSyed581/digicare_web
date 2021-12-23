@@ -12,15 +12,9 @@ module.exports = {
      * }], {});
     */
      return queryInterface.bulkInsert('CareGivers', [{
-      id: 2,
-      patient_id: 0,
+      _id: 5,
+      patient_id: 1,
       relationship: 'Companion',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }, {
-      id: 1,
-      patient_id: 3,
-      relationship: 'Nurse',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

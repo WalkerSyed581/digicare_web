@@ -12,26 +12,26 @@ module.exports = {
      * }], {});
     */
      return queryInterface.bulkInsert('Assessments', [{
-      id: 0,
-      doctor_id: 1,
-      patient_id: 0,
+      id: 1,
+      doctor_id: 4,
+      patient_id: 1,
       condition: 'Average',
       recommendations: 'Eat healthy',
       cgInstr: 'Be present round-the-clock',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 1,
-      doctor_id: 1,
-      patient_id: 2,
+      id: 2,
+      doctor_id: 4,
+      patient_id: 1,
       condition: 'Good',
       recommendations: 'Do not engage in strenuous activity',
       cgInstr: 'Ensure medicine dose is taken',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 2,
-      doctor_id: 2,
+      id: 3,
+      doctor_id: 4,
       patient_id: 2,
       condition: 'Poor',
       recommendations: 'Do not engage in strenuous activity',
@@ -39,17 +39,17 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 3,
-      doctor_id: 1,
-      patient_id: 0,
+      id: 4,
+      doctor_id: 4,
+      patient_id: 3,
       condition: 'Critical',
       recommendations: 'Eat healthy',
       cgInstr: 'Ensure medicine dose is taken',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 4,
-      doctor_id: 2,
+      id: 5,
+      doctor_id: 4,
       patient_id: 3,
       condition: 'Critical',
       recommendations: 'Do not engage in strenuous activity',

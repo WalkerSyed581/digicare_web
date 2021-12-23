@@ -12,13 +12,8 @@ module.exports = {
      * }], {});
     */
     return queryInterface.bulkInsert('Doctors', [{
-      id: 1,
-      emergency_contact: '99021958112',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }, {
-      id: 2,
-      emergency_contact: '36943442142',
+      _id: 4,
+      emergency_contact: "90021958112",
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

@@ -12,13 +12,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      CareGiver.belongsTo(models.User,{foreignKey: 'user_id' });
+      CareGiver.belongsTo(models.User,{foreignKey: '_id' });
       CareGiver.belongsTo(models.Patient,{foreignKey: 'patient_id' });
     }
   };
   CareGiver.init({
-    user_id: {
+    _id: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
       allowNull: false,
       references: {
         model: 'User',

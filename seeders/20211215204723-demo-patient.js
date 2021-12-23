@@ -12,17 +12,17 @@ module.exports = {
      * }], {});
     */
     return queryInterface.bulkInsert('Patients', [{
-      id: 2,
+      _id: 2,
       emergency_contact: '77876102683',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 3,
+      _id: 3,
       emergency_contact: '89372773526',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      id: 0,
+      _id: 1,
       emergency_contact: '90413599465',
       createdAt: new Date(),
       updatedAt: new Date()

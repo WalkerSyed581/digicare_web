@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Doctors',
-          key: 'id'
+          key: '_id'
         }
       },
       patient_id: {
@@ -21,7 +21,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Patients',
-          key: 'id'
+          key: '_id'
         }
       },
       condition: {

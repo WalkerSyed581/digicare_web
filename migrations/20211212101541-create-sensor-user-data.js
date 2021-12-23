@@ -20,7 +20,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Patients',
-          key: 'id'
+          key: '_id'
         }
       },
       sensor_id: {

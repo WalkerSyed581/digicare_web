@@ -15,35 +15,35 @@ module.exports = {
       timestamp: new Date(),
       patient_id: 2,
       sensor_reading: '69.47',
-      sensor_id: '1',
+      sensor_id: 2,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       timestamp: new Date(),
       patient_id: 3,
       sensor_reading: '37.73',
-      sensor_id: '2',
+      sensor_id: 3,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       timestamp: new Date(),
       patient_id: 3,
       sensor_reading: '70.81',
-      sensor_id: '1',
+      sensor_id: 2,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       timestamp: new Date(),
       patient_id: 3,
       sensor_reading: '41.46',
-      sensor_id: '0',
+      sensor_id: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       timestamp: new Date(),
       patient_id: 3,
       sensor_reading: '32.91',
-      sensor_id: '0',
+      sensor_id: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
